@@ -1,0 +1,446 @@
+# Default Command Mappings
+#
+#  Command data structure:
+#
+#  command_name               Identifying key for this command
+#  patterns                   A list of spoken words or phrases to be listened for
+#                             to trigger the action
+#  action_name                In REAPER action list, right click your desired action
+#                             and 'Copy selected action text'. Paste into action_name
+#                             (e.g., "Transport: Play" NOT the ID number)
+#  text_input                 Text to be typed via xdotool (requires xdotool installed)
+#                             Useful for naming tracks, entering values, etc.
+#  text_delay                 Wait time (in seconds, e.g., 0.3) after action executes
+#                             before text_input is typed. Allows UI to be ready.
+#  press_key                  Key to press via xdotool after text is typed
+#                             (e.g., "Return" to confirm, "Escape" to cancel)
+#  key_delay                  Wait time (in seconds, e.g., 0.05) after text_input
+#                             before press_key is executed
+#  description                Describes the action. Shown in telemetry and terminal output
+#  available_during_recording Boolean (true/false). If false, command is ignored while
+#                             recording is active. Prevents accidental interruptions.
+#
+#  Example command structure:
+#
+#  {command_name}:
+#    patterns:
+#      - "spoken phrase 1"
+#      - "spoken phrase two"
+#      - "a third spoken phrase"
+#    action_name: "Action: Reaper action to perform"
+#    text_input: "This is a cool action"
+#    text_delay: 0.3
+#    press_key: "Return"
+#    press_delay: 0.5
+#    description: "An action was performed!"
+#    available_during_recording: false
+#
+# These default commands are optimized for a 'solo recording' workflow
+# but everything can be changed to suit your needs or you can add new
+# commands. Recommend adding and overriding default commands by editing
+# custom_commands.yaml, which is processed after this default command list
+# allowing any commands with identical command_name(s) to override
+# these defaults.
+
+commands:
+
+  show_telemetry:
+    group: "ReaperVC"
+    patterns:
+      - "open telemetry"
+      - "show telemetry"
+      - "open console"
+      - "open the console"
+      - "show console"
+      - "show the console"
+    action_name: "Script: ReaperVC_LaunchTelemetry.lua"
+    description: "Launch live telemetry monitor"
+    available_during_recording: false
+
+  command_list:
+    group: "ReaperVC"
+    patterns:
+      - "command list"
+      - "commands"
+      - "voice command"
+    action: null
+    description: "Display command list"
+    available_during_recording: false
+
+  hide_telemetry:
+    group: "ReaperVC"
+    patterns:
+      - "close telemetry"
+      - "hide telemetry"
+      - "close console"
+      - "close the console"
+      - "hide console"
+      - "hide the console"
+    action_name: "Script: ReaperVC_HideTelemetry.lua"
+    description: "Stop telemetry monitor"
+    available_during_recording: false
+
+  play:
+    group: "Transport"
+    patterns:
+      - "play"
+      - "start playback"
+      - "playback"
+    action_name: "Transport: Play"
+    description: "Start playback"
+    available_during_recording: false
+
+  stop:
+    group: "Transport"
+    patterns:
+      - "stop"
+      - "stop playback"
+      - "stop recording"
+      - "end"
+      - "halt"
+    action_name: "Transport: Stop"
+    description: "Stop playback/recording"
+    available_during_recording: true
+
+  pause:
+    group: "Transport"
+    patterns:
+      - "pause"
+      - "pause playback"
+      - "pause recording"
+    action_name: "Transport: Pause"
+    description: "Pause playback/recording"
+    available_during_recording: true
+
+  record:
+    group: "Transport"
+    patterns:
+      - "record"
+      - "start recording"
+      - "begin recording"
+    action_name: "Transport: Record"
+    description: "Start recording"
+    available_during_recording: false
+
+  restart:
+    group: "Transport"
+    patterns:
+      - "restart"
+      - "go to start"
+      - "go to beginning"
+      - "playhead to start"
+      - "playhead to beginning"
+      - "beginning"
+      - "top"
+      - "rewind"
+    action_name: "Transport: Go to start of project"
+    description: "Move playhead to start of project"
+    available_during_recording: false
+
+  goto_end:
+    group: "Transport"
+    patterns:
+      - "go to end"
+      - "playhead to end"
+      - "end"
+    action_name: "Transport: Go to end of project"
+    description: "Move playhead to end of project"
+    available_during_recording: false
+
+  insert_marker:
+    group: "Transport"
+    patterns:
+      - "insert marker"
+      - "insert a marker"
+      - "add marker"
+      - "add a marker"
+    action_name: "SWS/S&M: Insert marker at edit cursor"
+    description: "Insert marker at edit cursor position"
+    available_during_recording: false
+
+  loop:
+    group: "Transport"
+    patterns:
+      - "loop"
+      - "toggle loop"
+      - "looping"
+    action_name: "Transport: Toggle repeat"
+    description: "Toggle looping on/off"
+    available_during_recording: false
+
+  goto_time:
+    group: "Transport"
+    patterns:
+      - "cursor to"
+      - "playhead to"
+      - "go to"
+    param_name: "time"
+    parameter_type: "time"
+    osc_message: "/time"
+    description: "Move edit cursor to time position"
+    available_during_recording: false
+
+  next_bar:
+    group: "Transport"
+    patterns:
+      - "next bar"
+      - "next measure"
+    action_name: "Move edit cursor to start of next measure"
+    description: "Move cursor to next bar"
+    available_during_recording: false
+
+  previous_bar:
+    group: "Transport"
+    patterns:
+      - "previous bar"
+      - "previous measure"
+    action_name: "Move edit cursor to start of current/previous measure"
+    description: "Move cursor to previous bar"
+    available_during_recording: false
+
+  next_beat:
+    group: "Transport"
+    patterns:
+      - "next beat"
+    action_name: "Move edit cursor to start of next beat"
+    description: "Move cursor to next beat"
+    available_during_recording: false
+
+  previous_beat:
+    group: "Transport"
+    patterns:
+      - "previous beat"
+    action_name: "Move edit cursor to start of current/previous beat"
+    description: "Move cursor to previous beat"
+    available_during_recording: false
+
+  set_loop_start:
+    group: "Transport"
+    patterns:
+      - "set loop start"
+      - "set loop begin"
+      - "loop start here"
+      - "mark loop start"
+    action_name: "Loop points: Set start point"
+    description: "Set loop start point at edit cursor"
+    available_during_recording: false
+
+  set_loop_end:
+    group: "Transport"
+    patterns:
+      - "set loop end"
+      - "loop end here"
+      - "mark loop end"
+    action_name: "Loop points: Set end point"
+    description: "Set loop end point at edit cursor"
+    available_during_recording: false
+
+  delete_take:
+    group: "Recording"
+    patterns:
+      - "delete last take"
+      - "delete my last take"
+      - "delete take"
+      - "delete that"
+      - "remove take"
+      - "trash it"
+    action_names:
+      - "Transport: Stop"
+      - "Take: Delete active take from items"
+    description: "Stop and delete the last recorded take"
+    available_during_recording: false
+
+  again:
+    group: "Recording"
+    patterns:
+      - "again"
+      - "try again"
+      - "start again"
+      - "new take"
+      - "start over"
+      - "one more time"
+    action_names:
+      - "Take: Delete active take from items"
+      - "Transport: Record"
+    description: "Delete last take and start recording again"
+    available_during_recording: false
+
+  keep:
+    group: "Recording"
+    patterns:
+      - "keep"
+      - "that's good"
+    action_names:
+      - "Track: Select last touched track"
+      - "Track: Toggle record arm for last touched track"
+    description: "Disarm track and confirm (keep the take)"
+    available_during_recording: false
+
+  freeze_stereo:
+    group: "Track List"
+    patterns:
+      - "freeze stereo"
+      - "freeze to stereo"
+      - "freeze track stereo"
+      - "freeze track to stereo"
+    action_name: "Track: Freeze to stereo (render pre-fader, save/remove items and online FX)"
+    description: "Freeze current track to stereo"
+    available_during_recording: false
+
+  freeze_mono:
+    group: "Track List"
+    patterns:
+      - "freeze mono"
+      - "freeze to mono"
+      - "freeze track mono"
+      - "freeze track to mono"
+    action_name: "Track: Freeze to mono (render pre-fader, save/remove items and online FX)"
+    description: "Freeze current track to mono"
+    available_during_recording: false
+
+  new_track:
+    group: "Track List"
+    patterns:
+      - "new track"
+      - "add track"
+      - "add a track"
+      - "add new track"
+      - "add a new track"
+      - "insert track"
+      - "insert new track"
+      - "insert a new track"
+      - "create a new track"
+    action_name: "Track: Insert new track at end of track list"
+    description: "Add new track at end of track list"
+    available_during_recording: false
+
+  select_all_tracks:
+    group: "Track List"
+    patterns:
+      - "select all"
+    action_name: "Track: Select all top level tracks"
+    description: "Select all tracks"
+    available_during_recording: false
+
+  remove_track:
+    group: "Track List"
+    patterns:
+      - "remove track"
+      - "delete track"
+      - "remove tracks"
+      - "delete tracks"
+    action_names:
+      - "Track: Remove tracks"
+    description: "Track: Remove tracks"
+    available_during_recording: false
+
+  select_track:
+    group: "Track List"
+    patterns:
+      - "select track"
+    action_name: "Track: Select last touched track"
+    description: "Select last touched track"
+    available_during_recording: false
+
+  arm_track:
+    group: "Track"
+    patterns:
+      - "toggle arm"
+      - "arm toggle"
+      - "record arm"
+      - "arm track"
+    action_name: "Track: Toggle record arm for last touched track"
+    description: "Toggle record arm for last touched track"
+    available_during_recording: false
+
+  pan_left:
+    group: "Track"
+    patterns:
+      - "pan left"
+      - "left pan"
+      - "track left"
+    param_name: "percentage"
+    parameter_type: "pan_left"
+    osc_message: "/action/5/cc"
+    description: "Pan selected track left"
+    available_during_recording: true
+
+  pan_right:
+    group: "Track"
+    patterns:
+      - "pan right"
+      - "right pan"
+      - "track right"
+    param_name: "percentage"
+    parameter_type: "pan_right"
+    osc_message: "/action/5/cc"
+    description: "Pan selected track right"
+    available_during_recording: true
+
+  pan_center:
+    group: "Track"
+    patterns:
+      - "pan center"
+      - "center pan"
+      - "track center"
+    param_name: "percentage"
+    parameter_type: "pan_center"
+    osc_message: "/action/5/cc"
+    description: "Pan selected track to center"
+    available_during_recording: true
+
+  metronome:
+    group: "Time and Tempo"
+    patterns:
+      - "metronome"
+    action_name: "Options: Toggle metronome"
+    description: "Toggle metronome on/off"
+    available_during_recording: false
+
+  set_tempo:
+    group: "Time and Tempo"
+    patterns:
+      - "set tempo"
+      - "set the tempo to"
+      - "set the tempo"
+      - "set temp"
+      - "tempo"
+    param_name: "number (bpm)"
+    parameter_type: "bpm"
+    osc_message: "/tempo/raw"
+    description: "Set project tempo to BPM value"
+    available_during_recording: false
+
+  undo:
+    group: "Project"
+    patterns:
+      - "undo"
+      - "undo that"
+    action_name: "Edit: Undo"
+    description: "Undo last action"
+    available_during_recording: false
+
+  save:
+    group: "Project"
+    patterns:
+      - "save"
+      - "save project"
+    action_name: "File: Save project"
+    description: "Save project"
+    available_during_recording: false
+
+  kill_reapervc:
+    group: "ReaperVC"
+    patterns:
+      - "stop reaper vc"
+      - "kill reaper vc"
+      - "reaper vc stop"
+      - "reaper vc kill"
+      - "stop voice control"
+      - "kill voice control"
+      - "stop voice"
+      - "kill voice"
+      - "stop listening"
+    action: null
+    description: "Kill ReaperVC (immediate exit)"
+    available_during_recording: true

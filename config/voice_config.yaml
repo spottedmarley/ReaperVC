@@ -1,0 +1,102 @@
+# ReaperVC Voice Input Configuration
+
+# Audio Input Settings
+audio:
+  # Microphone setup: "single" or "dual"
+  mic_setup: "single"
+  # Audio input device index (null for default, or specific device index)
+  device_index: 6  # JACK device for shared access with Reaper
+  # Input channel (0 = input 1, 1 = input 2)
+  input_channel: 0  # Using input 1 on Scarlett 2i2
+  # Sample rate (Hz)
+  sample_rate: 48000  # Must match JACK server sample rate
+  # Frame duration for VAD (ms) - must be 10, 20, or 30
+  frame_duration_ms: 30
+  # Audio buffer size
+  buffer_size: 4096
+  # Input gain multiplier (1.0 = no gain)
+  input_gain: 1.5  # Increased for better signal-to-noise ratio
+
+# Speech-to-Text Settings
+stt:
+  # Engine: "whisper" or "vosk"
+  engine: "whisper"
+  # Whisper model: "tiny", "base", "small", "medium", "large"
+  whisper_model: "small"  # Upgraded for better accuracy
+  # Use GPU if available (requires CUDA or ROCm)
+  use_gpu: false
+  # Language (for Whisper)
+  language: "en"
+  # Confidence threshold (0.0-1.0) - request clarification below this
+  confidence_threshold: 0.7
+
+# Voice Activity Detection Settings
+vad:
+  # Aggressiveness level: 0 (least aggressive) to 3 (most aggressive)
+  # Higher = less sensitive to background noise but may miss quiet speech
+  aggressiveness: 2
+  # Silence duration to consider speech ended (seconds)
+  silence_duration: 0.5  # Increased for natural speech patterns
+  # Minimum speech duration to process (seconds) - ignore very short sounds
+  min_speech_duration: 0.3  # Increased to filter quick noises
+  # Maximum speech duration before forcing transcription (seconds)
+  max_speech_duration: 4.0  # Increased to allow complete utterances
+
+# Transient Detection (Clap/Snap Emergency Stop)
+transient_detection:
+  # Enable transient detection (clap/snap to stop during recording)
+  enabled: false  # Disabled - too sensitive for guitar/percussion instruments
+  # Threshold in dB for detection (-20 = loud, -10 = very loud)
+  threshold_db: -15  # If enabled, only very loud transients
+  # Cooldown between detections (seconds)
+  cooldown: 1.0
+
+# Recording Mode Settings (prevents vocal performances from triggering commands)
+recording_mode:
+  # Enable recording mode filtering
+  enabled: true
+  # Whitelist of allowed commands during recording
+  whitelist:
+    - "stop"
+    - "stop recording"
+    - "stop recording now"
+    - "end recording"
+    - "end"
+    - "halt"
+    - "pause"
+    - "pause recording"
+    - "stop reaper vc"
+    - "kill reaper vc"
+    - "reaper vc stop"
+    - "reaper vc kill"
+    - "stop voice control"
+    - "kill voice control"
+    - "stop voice"
+    - "kill voice"
+    - "stop listening"
+  # Use lightweight pattern matching instead of full STT in recording mode
+  use_pattern_matching: true
+  # Pattern matching confidence threshold (0.0-1.0)
+  pattern_threshold: 0.75
+
+# Audio Processing
+processing:
+  # Enable noise gate
+  noise_gate: false  # Disabled for testing
+  # Noise gate threshold (dB)
+  noise_gate_threshold: -40
+  # Bandpass filter for voice frequency range
+  bandpass_filter: true
+  # Bandpass low frequency (Hz)
+  bandpass_low: 100  # Increased to remove more low-frequency rumble
+  # Bandpass high frequency (Hz)
+  bandpass_high: 6000  # Decreased to focus on core speech frequencies
+
+# Feedback Settings
+feedback:
+  # Visual feedback in console
+  visual_feedback: true
+  # Audio feedback (beep on command recognition)
+  audio_feedback: false
+  # Show transcription confidence scores
+  show_confidence: true

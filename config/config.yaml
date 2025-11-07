@@ -1,0 +1,16 @@
+# ReaperVC Configuration
+
+# OSC Settings
+osc:
+  # Port Reaper listens on (sends commands to this port)
+  reaper_port: 8000
+  # Port agent listens on (receives feedback from Reaper)
+  agent_port: 9000
+  # Host (localhost for security)
+  host: "127.0.0.1"
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "logs/reapervc.log"
+  console: true

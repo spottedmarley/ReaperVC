@@ -1,0 +1,135 @@
+# ============================================================================
+# CUSTOM COMMANDS - EXAMPLES FOR REFERENCE
+# ============================================================================
+#
+# ⚠️  IMPORTANT: The commands in this file are EXAMPLES ONLY!
+#
+# They demonstrate advanced features like:
+#   - text_input (typing text via xdotool)
+#   - text_delay (waiting for UI to be ready)
+#   - press_key (pressing keys like Return/Escape)
+#   - key_delay (timing between actions)
+#
+# These example commands may:
+#   - Use custom actions you don't have installed
+#   - Not work on your system without modification
+#   - Override default commands (if they share the same command_name)
+#
+# HOW TO USE THIS FILE:
+#   1. Review the examples to learn the syntax
+#   2. Comment out or delete the examples you don't need
+#   3. Add your own custom commands
+#   4. Commands here OVERRIDE any matching commands in default_commands.yaml
+#
+# TIP: Keep this file clean! Only include commands you actually use.
+#
+# ============================================================================
+#
+#  Command data structure:
+#
+#  command_name               Identifying key for this command
+#  patterns                   A list of spoken words or phrases to be listened for
+#                             to trigger the action
+#  action_name                In REAPER action list, right click your desired action
+#                             and 'Copy selected action text'. Paste into action_name
+#                             (e.g., "Transport: Play" NOT the ID number)
+#  text_input                 Text to be typed via xdotool (requires xdotool installed)
+#                             Useful for naming tracks, entering values, etc.
+#  text_delay                 Wait time (in seconds, e.g., 0.3) after action executes
+#                             before text_input is typed. Allows UI to be ready.
+#  press_key                  Key to press via xdotool after text is typed
+#                             (e.g., "Return" to confirm, "Escape" to cancel)
+#  key_delay                  Wait time (in seconds, e.g., 0.05) after text_input
+#                             before press_key is executed
+#  description                Describes the action. Shown in telemetry and terminal output
+#  available_during_recording Boolean (true/false). If false, command is ignored while
+#                             recording is active. Prevents accidental interruptions.
+#
+#  Example command structure:
+#
+#  {command_name}:
+#    patterns:
+#      - "spoken phrase 1"
+#      - "spoken phrase two"
+#      - "a third spoken phrase"
+#    action_name: "Action: Reaper action to perform"
+#    text_input: "This is a cool action"
+#    text_delay: 0.3
+#    press_key: "Return"
+#    press_delay: 0.5
+#    description: "An action was performed!"
+#    available_during_recording: false
+#
+# All commands defined in this file take precedence over any identical
+# commands found in default_commands.yaml. If a command definition here
+# uses the same command_name as one from the default list, it will completely
+# override the default. For safe modifications to default commands, you can
+# copy the command from default into this file and make changes here. Recomend
+# that all your customizations to the command list be made here to preserve
+# the orignal default_commands file.
+
+commands:
+  # ZOOM BIGGER - Make all tracks increase height +1
+  bigger:
+    group: "Custom: UI"
+    patterns:
+      - "zoom"
+      - "bigger"
+    action_name: "Custom: All Tracks Bigger"
+    description: "Increase height, all tracks +1"
+    available_during_recording: false
+
+  # SHRINK SMALLER - Make all tracks decrease height -1
+  smaller:
+    group: "Custom: UI"
+    patterns:
+      - "shrink"
+      - "smaller"
+    action_name: "Custom: All Tracks Smaller"
+    description: "Decrease height, all tracks -1"
+    available_during_recording: false
+
+  # GUITAR TRACK - Create a new track with Guitar Rig plugin, track name 'Geetar', arm for recording
+  guitar_track:
+    group: "Custom: Track List"
+    patterns:
+      - "guitar rig"
+      - "guitar track"
+    action_name: "Custom: Geetar Track"
+    description: "Load Guitar Rig Template, rename track, arm track"
+    text_input: "Geetar"
+    text_delay: 2.5
+    press_key: "Return"
+    key_delay: 0.05
+    available_during_recording: false
+
+  # DRUM TRACK
+  drum_track:
+    group: "Custom: Track List"
+    patterns:
+      - "drum track"
+      - "easy drummer"
+      - "easy drums"
+    action_name: "Custom: Drum Track"
+    description: "Add new track named EZ Drummer"
+    text_input: "EZ Drummer"
+    text_delay: 0.3
+    press_key: "Return"
+    key_delay: 2.0
+    available_during_recording: false
+
+
+  new_vocal_track:
+    group: "Custom: Track List"
+    patterns:
+      - "new vocal track"
+      - "add vocal track"
+      - "vocal track"
+      - "vocals track"
+    action_name: "Custom: Create track and activate name field"
+    description: "Add new track named Vocals"
+    text_input: "Vocals"
+    text_delay: 0.3
+    press_key: "Return"
+    key_delay: 0.05
+    available_during_recording: false

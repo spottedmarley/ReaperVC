@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Claude Code
+.claude/
+CLAUDE.md
+SESSION_BACKUP.md
+
+# Environment variables
+.env
+
+# Whisper models cache
+*.pt
+models/
+
+# Config overrides
+config/local_*.yaml
+config/*_local.yaml
+config/custom_commands_backup.yaml
+
+# Reaper action list (user-specific)
+reaper-actions.txt
+
+# Extras and testing
+extras/
+archive/
+
+# OS
+.DS_Store
+Thumbs.db

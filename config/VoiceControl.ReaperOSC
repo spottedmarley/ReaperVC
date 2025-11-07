@@ -1,0 +1,9 @@
+# ReaperVC OSC Configuration
+
+# Make REAPER follow device selection
+# This means /track/name will work on the track that the device (ReaperVC) selects
+REAPER_TRACK_FOLLOWS DEVICE
+DEVICE_TRACK_FOLLOWS LAST_TOUCHED
+
+# Use default OSC patterns - these are inherited from Default.ReaperOSC
+# No need to redefine TRACK_NAME, TRACK_RECARM, etc.
