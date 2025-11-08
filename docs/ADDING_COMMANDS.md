@@ -6,7 +6,7 @@
 
 Adding a custom command involves 3 simple steps:
 
-1. **Find the action** in reaper-actions.txt
+1. **Find the action** in Reaper's actions list
 2. **Add it** to config/custom_commands.yaml
 3. **Test it** using the live telemetry in your terminal
 

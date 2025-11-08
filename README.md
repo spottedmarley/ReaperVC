@@ -1,6 +1,6 @@
 # ReaperVC - Voice Control for REAPER DAW
 
-**Powerful and highly configurable voice control for Reaper**
+**Powerful and highly configurable voice control for Reaper (Linux)**
 
 ---
 
@@ -213,6 +213,7 @@ Every session saves a complete telemetry log to extras/telemetry.md:
 - **Action Name Mapping** - Makes configs portable across REAPER installations
 
 ## Requirements
+- Currently ReaperVC is made for Linux Reaper users. It should be relatively easy to adapt it to Windows, but so far has never been tried.
 
 ### Hardware
 - **Microphone** (any USB mic works)
