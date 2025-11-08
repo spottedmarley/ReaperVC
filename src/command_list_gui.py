@@ -48,9 +48,9 @@ class CommandListWindow:
 		for group in groups:
 			groups[group] = sorted(groups[group], key=lambda x: x[0])
 
-		# Sort groups by total number of patterns (descending)
+		# Sort groups by total number of patterns (ascending)
 		sorted_groups = {}
-		for group in sorted(groups.keys(), key=lambda g: sum(len(patterns) for _, patterns in groups[g]), reverse=True):
+		for group in sorted(groups.keys(), key=lambda g: sum(len(patterns) for _, patterns in groups[g])):
 			sorted_groups[group] = groups[group]
 
 		return sorted_groups
@@ -136,8 +136,11 @@ class CommandListWindow:
 			lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 		)
 
-		self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
+		self.canvas_window = self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="n")
 		self.canvas.configure(yscrollcommand=self.scrollbar.set)
+
+		# Bind canvas configuration to center content
+		self.canvas.bind("<Configure>", self._center_content)
 
 		# Organize commands by group
 		self.groups = self._organize_by_group()
@@ -236,6 +239,11 @@ class CommandListWindow:
 		self.header_font_size = max(8, self.header_font_size - 1)
 		self._layout_groups()
 
+	def _center_content(self, event=None):
+		"""Center the scrollable frame content in the canvas"""
+		canvas_width = self.canvas.winfo_width()
+		self.canvas.coords(self.canvas_window, canvas_width // 2, 0)
+
 	def _on_resize(self, event):
 		"""Handle window resize to adjust column count"""
 		# Only respond to window resize events, not child widgets
@@ -258,9 +266,10 @@ class CommandListWindow:
 
 		# Calculate number of columns based on window width
 		# Each column needs approximately 300px minimum width
+		# Maximum 5 columns
 		window_width = self.window.winfo_width()
 		min_column_width = 300
-		num_columns = max(2, window_width // min_column_width)
+		num_columns = max(2, min(5, window_width // min_column_width))
 
 		# Create grid layout for groups with wrapping
 		group_items = list(self.groups.items())
@@ -304,7 +313,7 @@ class CommandListWindow:
 				font=("Monospace", 10, "bold"),
 				command=lambda gn=group_name: self._hide_group(gn),
 				bg=self.bg_color,
-				fg="#666666",
+				fg="#ff9900",
 				activebackground="#333333",
 				activeforeground="#ffffff",
 				relief=tk.FLAT,
